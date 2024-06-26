@@ -19,6 +19,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
+import TabsDemo from "@/components/ui/tab";
 import { isMainnet } from "@/utils";
 import { Network } from "@aptos-labs/ts-sdk";
 import { WalletSelector as AntdWalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
@@ -36,36 +37,41 @@ import Image from "next/image";
 
 export default function Home() {
   const { account, connected, network, wallet, changeNetwork } = useWallet();
-
+  const { autoConnect, setAutoConnect } = useAutoConnect();
   return (
-    <main className="flex flex-col w-full max-w-[1000px] p-6 pb-12 md:px-8 gap-6">
+    <main className="flex flex-col w-full max-w-[1300px] p-6 pb-12 md:px-8 gap-6">
       <div className="flex justify-between gap-6 pb-10">
         <div className="flex flex-col gap-2 md:gap-3">
           <h1 className="text-xl sm:text-3xl font-semibold tracking-tight">
-            Aptos Wallet Adapter Tester
+            Aptos Token  Buy/Sell  and DCA
             {network?.name ? ` — ${network.name}` : ""}
           </h1>
-          <a
-            href="https://github.com/aptos-labs/aptos-wallet-adapter/tree/main/apps/nextjs-example"
-            target="_blank"
-            rel="noreferrer"
-            className="text-sm text-muted-foreground underline underline-offset-2 font-medium leading-none"
-          >
-            Demo App Source Code
-          </a>
         </div>
-        <ThemeToggle />
+        <div className="flex flex-row gap-4 items-center">
+          {/* <ThemeToggle /> */}
+          <label className="flex items-center gap-4 cursor-pointer">
+            <Switch
+              id="auto-connect-switch"
+              checked={autoConnect}
+              onCheckedChange={setAutoConnect}
+            />
+            <Label htmlFor="auto-connect-switch">
+              Auto reconnect on page load
+            </Label>
+          </label>
+          <MuiWalletSelector />
+        </div>
       </div>
       <WalletSelection />
-      {connected && (
+      {/* {connected && (
         <WalletConnection
           account={account}
           network={network}
           wallet={wallet}
           changeNetwork={changeNetwork}
         />
-      )}
-      {connected && isMainnet(connected, network?.name) && (
+      )} */}
+      {/* {connected && isMainnet(connected, network?.name) && (
         <Alert variant="warning">
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Warning</AlertTitle>
@@ -81,47 +87,23 @@ export default function Home() {
           <Sponsor />
           <MultiAgent />
         </>
-      )}
+      )} */}
     </main>
   );
 }
 
 function WalletSelection() {
-  const { autoConnect, setAutoConnect } = useAutoConnect();
 
   return (
-    <Card>
+    <Card style={{ backgroundImage: 'url(/bot_bg.png)', backgroundSize: 'cover' }} >
       <CardHeader>
-        <CardTitle>Wallet Selection</CardTitle>
+        <CardTitle></CardTitle>
         <CardDescription>
-          Connect a wallet using one of the following wallet selectors.
+          {/* Connect a wallet using one of the following wallet selectors. */}
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="flex flex-wrap gap-6 pt-6 pb-12 justify-between items-center">
-          <div className="flex flex-col gap-4 items-center">
-            <div className="text-sm text-muted-foreground">shadcn/ui</div>
-            <ShadcnWalletSelector />
-          </div>
-          <div className="flex flex-col gap-4 items-center">
-            <div className="text-sm text-muted-foreground">Ant Design</div>
-            <AntdWalletSelector />
-          </div>
-          <div className="flex flex-col gap-4 items-center">
-            <div className="text-sm text-muted-foreground">Material UI</div>
-            <MuiWalletSelector />
-          </div>
-        </div>
-        <label className="flex items-center gap-4 cursor-pointer">
-          <Switch
-            id="auto-connect-switch"
-            checked={autoConnect}
-            onCheckedChange={setAutoConnect}
-          />
-          <Label htmlFor="auto-connect-switch">
-            Auto reconnect on page load
-          </Label>
-        </label>
+      <CardContent className="flex lg:justify-end sm:justify-center">
+        <TabsDemo></TabsDemo>
       </CardContent>
     </Card>
   );
