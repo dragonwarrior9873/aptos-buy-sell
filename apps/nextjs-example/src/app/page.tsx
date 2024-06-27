@@ -97,14 +97,14 @@ function WalletSelection() {
   return (
     <Card style={{ backgroundImage: 'url(/bot_bg.png)', backgroundSize: 'cover' }} >
       <CardHeader>
-        <CardTitle></CardTitle>
-        <CardDescription>
-          {/* Connect a wallet using one of the following wallet selectors. */}
-        </CardDescription>
       </CardHeader>
       <CardContent className="flex lg:justify-end sm:justify-center">
         <TabsDemo></TabsDemo>
       </CardContent>
+      <CardHeader>
+      </CardHeader>
+      <CardHeader>
+      </CardHeader>
     </Card>
   );
 }
