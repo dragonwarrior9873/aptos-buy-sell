@@ -6,8 +6,21 @@ import axios from 'axios';
 const url = "https://localhost:3100/";
 
 interface Option {
-  value: string;
-  label: string;
+    chainId: number,
+    tokenAddress: string,
+    name: string,
+    symbol: string,
+    decimals: number,
+    bridge: string,
+    panoraSymbol: string,
+    logoUrl: string,
+    websiteUrl: string,
+    category: string,
+    isInPanoraTokenList: boolean,
+    isBanned: boolean,
+    panoraOrderIndex: number,
+    coingeckoId: string,
+    coinMarketCapId: number
 }
 
 async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -28,6 +41,7 @@ const BuyTab = () => {
     };
 
     fetchOptions();
+    console.log(options)
   }, []);
 
   return (
@@ -38,11 +52,11 @@ const BuyTab = () => {
           <label className="Label" htmlFor="token_address">
             Token Address
           </label>
-          <select className="Input" name="token_address" id="token_address" defaultValue="">
-            <option value="" disabled>Please select a token</option>
+          <select className="Input bg-white" name="token_address" id="token_address" defaultValue="">
+            <option className="bg-white" value="" disabled>Please select a token</option>
             {options.map(option => (
-              <option key={option.value} value={option.value}>
-                {option.label}
+              <option key={option.name} value={option.tokenAddress}>
+                {option.name}
               </option>
             ))}
           </select>
